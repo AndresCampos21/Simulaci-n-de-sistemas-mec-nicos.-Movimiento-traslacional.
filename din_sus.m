@@ -1,0 +1,25 @@
+%dinamica suspension
+function dx = din_sus(t,x)
+m1 = 290;
+b1 = 1000;
+m2 = 59;
+k1 = 16182;
+f = 0;
+k2 = 19000;
+z1 = 0.05*sin(0.5*pi*t);
+z2 = 0.05*sin(20*pi*t);
+z=z2;
+
+%x(1) = x1
+%x(2) = x2
+%x(3) = x1dot
+%x(4) = x2dot
+
+%x1ddot = 1/m1(f-b1x1dot+b1x2dot-k1x1+k1x2)
+%x2ddot = 1/m2(-f+k2*z+b1x1dot-b1x2dot+k1x1-(k1+k2)x2)
+
+dx = zeros(4,1);
+dx(1) = x(3);
+dx(2) = x(4);
+dx(3) = (1/m1)*(-b1*x(3)+b1*x(4)-k1*x(1)+k1*x(2)+f);
+dx(4) = (1/m2)*(b1*x(3)-b1*x(4)+k1*x(1)-(k1+k2)*x(2)+k2*z-f);
